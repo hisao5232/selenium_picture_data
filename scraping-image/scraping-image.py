@@ -35,7 +35,13 @@ Word = "カフェ"
 driver.find_element(By.CLASS_NAME, "SearchBox__searchInput").send_keys(Word)
 sleep(1)
 driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div[1]/div[2]/form/div[1]/button").click()
+sleep(3)
 
+height=1000
+while height <5000:
+    driver.execute_script("window.scrollTo(0,{});".format(height))
+    height += 100
+    sleep(1)
 #待機処理
 wait.until(EC.presence_of_all_elements_located)
 
@@ -60,7 +66,7 @@ for img_url in img_urls:
     try:
         with urllib.request.urlopen(img_url) as rf:
             img_data = rf.read()
-        with open(save_dir + f"カフェ画像{a}.jpg","wb") as wf:
+        with open(save_dir + f"{Word}画像{a}.jpg","wb") as wf:
             wf.write(img_data)
         a=a+1
         sleep(1)
